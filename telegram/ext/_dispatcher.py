@@ -452,7 +452,7 @@ class Dispatcher(Generic[BT, CCT, UD, CD, BD, JQ, PT]):
             self.persistence.flush()
 
         # Shut down the bot
-        self.bot.shutdown()
+        # self.bot.shutdown()
 
     @property
     def has_running_threads(self) -> bool:  # skipcq: PY-D0003

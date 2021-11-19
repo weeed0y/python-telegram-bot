@@ -133,10 +133,10 @@ class Bot(TelegramObject, AbstractAsyncContextManager):
     .. code:: python
 
         try:
-            bot.initialize()
+            await bot.initialize()
             # code
         finally:
-            request_object.shutdown()
+            await request_object.shutdown()
 
     Note:
         Most bot methods have the argument ``api_kwargs`` which allows to pass arbitrary keywords
@@ -4153,7 +4153,7 @@ class Bot(TelegramObject, AbstractAsyncContextManager):
         return ChatInviteLink.de_json(result, self)  # type: ignore[return-value, arg-type]
 
     @_log
-    def approve_chat_join_request(
+    async def approve_chat_join_request(
         self,
         chat_id: Union[str, int],
         user_id: int,
@@ -4185,12 +4185,14 @@ class Bot(TelegramObject, AbstractAsyncContextManager):
         """
         data: JSONDict = {'chat_id': chat_id, 'user_id': user_id}
 
-        result = self._post('approveChatJoinRequest', data, timeout=timeout, api_kwargs=api_kwargs)
+        result = await self._post(
+            'approveChatJoinRequest', data, timeout=timeout, api_kwargs=api_kwargs
+        )
 
         return result  # type: ignore[return-value]
 
     @_log
-    def decline_chat_join_request(
+    async def decline_chat_join_request(
         self,
         chat_id: Union[str, int],
         user_id: int,
@@ -4222,7 +4224,9 @@ class Bot(TelegramObject, AbstractAsyncContextManager):
         """
         data: JSONDict = {'chat_id': chat_id, 'user_id': user_id}
 
-        result = self._post('declineChatJoinRequest', data, timeout=timeout, api_kwargs=api_kwargs)
+        result = await self._post(
+            'declineChatJoinRequest', data, timeout=timeout, api_kwargs=api_kwargs
+        )
 
         return result  # type: ignore[return-value]
 

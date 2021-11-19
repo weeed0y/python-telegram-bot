@@ -1945,33 +1945,37 @@ class TestBot:
         assert isinstance(invite_link, str)
         assert invite_link != ''
 
-    def test_create_edit_invite_link_mutually_exclusive_arguments(self, bot, channel_id):
+    @pytest.mark.asyncio
+    async def test_create_edit_invite_link_mutually_exclusive_arguments(self, bot, channel_id):
         data = {'chat_id': channel_id, 'member_limit': 17, 'creates_join_request': True}
 
         with pytest.raises(ValueError, match="`member_limit` can't be specified"):
-            bot.create_chat_invite_link(**data)
+            await bot.create_chat_invite_link(**data)
 
         data.update({'invite_link': 'https://invite.link'})
         with pytest.raises(ValueError, match="`member_limit` can't be specified"):
-            bot.edit_chat_invite_link(**data)
+            await bot.edit_chat_invite_link(**data)
 
     @flaky(3, 1)
     @pytest.mark.parametrize('creates_join_request', [True, False])
     @pytest.mark.parametrize('name', [None, 'name'])
-    def test_create_chat_invite_link_basics(self, bot, creates_join_request, name, channel_id):
+    @pytest.mark.asyncio
+    async def test_create_chat_invite_link_basics(
+        self, bot, creates_join_request, name, channel_id
+    ):
         data = {}
         if creates_join_request:
             data['creates_join_request'] = True
         if name:
             data['name'] = name
-        invite_link = bot.create_chat_invite_link(chat_id=channel_id, **data)
+        invite_link = await bot.create_chat_invite_link(chat_id=channel_id, **data)
 
         assert invite_link.member_limit is None
         assert invite_link.expire_date is None
         assert invite_link.creates_join_request == creates_join_request
         assert invite_link.name == name
 
-        revoked_link = bot.revoke_chat_invite_link(
+        revoked_link = await bot.revoke_chat_invite_link(
             chat_id=channel_id, invite_link=invite_link.invite_link
         )
         assert revoked_link.is_revoked
@@ -2012,7 +2016,7 @@ class TestBot:
         assert edited_invite_link.name == 'NewName'
         assert edited_invite_link.member_limit == 20
 
-        edited_invite_link = bot.edit_chat_invite_link(
+        edited_invite_link = await bot.edit_chat_invite_link(
             channel_id,
             invite_link.invite_link,
             name='EvenNewerName',
@@ -2062,7 +2066,7 @@ class TestBot:
         assert edited_invite_link.name == 'NewName'
         assert edited_invite_link.member_limit == 20
 
-        edited_invite_link = tz_bot.edit_chat_invite_link(
+        edited_invite_link = await tz_bot.edit_chat_invite_link(
             channel_id,
             invite_link.invite_link,
             name='EvenNewerName',
@@ -2081,20 +2085,22 @@ class TestBot:
         assert revoked_invite_link.is_revoked is True
 
     @flaky(3, 1)
-    def test_approve_chat_join_request(self, bot, chat_id, channel_id):
+    @pytest.mark.asyncio
+    async def test_approve_chat_join_request(self, bot, chat_id, channel_id):
         # TODO: Need incoming join request to properly test
         # Since we can't create join requests on the fly, we just tests the call to TG
         # by checking that it complains about approving a user who is already in the chat
         with pytest.raises(BadRequest, match='User_already_participant'):
-            bot.approve_chat_join_request(chat_id=channel_id, user_id=chat_id)
+            await bot.approve_chat_join_request(chat_id=channel_id, user_id=chat_id)
 
     @flaky(3, 1)
-    def test_decline_chat_join_request(self, bot, chat_id, channel_id):
+    @pytest.mark.asyncio
+    async def test_decline_chat_join_request(self, bot, chat_id, channel_id):
         # TODO: Need incoming join request to properly test
         # Since we can't create join requests on the fly, we just tests the call to TG
         # by checking that it complains about declining a user who is already in the chat
         with pytest.raises(BadRequest, match='User_already_participant'):
-            bot.decline_chat_join_request(chat_id=channel_id, user_id=chat_id)
+            await bot.decline_chat_join_request(chat_id=channel_id, user_id=chat_id)
 
     @flaky(3, 1)
     @pytest.mark.asyncio

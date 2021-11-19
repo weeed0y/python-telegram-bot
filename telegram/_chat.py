@@ -1451,7 +1451,7 @@ class Chat(TelegramObject):
             api_kwargs=api_kwargs,
         )
 
-    def export_invite_link(
+    async def export_invite_link(
         self,
         timeout: ODVInput[float] = DEFAULT_NONE,
         api_kwargs: JSONDict = None,
@@ -1469,11 +1469,11 @@ class Chat(TelegramObject):
             :obj:`str`: New invite link on success.
 
         """
-        return self.get_bot().export_chat_invite_link(
+        return await self.get_bot().export_chat_invite_link(
             chat_id=self.id, timeout=timeout, api_kwargs=api_kwargs
         )
 
-    def create_invite_link(
+    async def create_invite_link(
         self,
         expire_date: Union[int, datetime] = None,
         member_limit: int = None,
@@ -1499,7 +1499,7 @@ class Chat(TelegramObject):
             :class:`telegram.ChatInviteLink`
 
         """
-        return self.get_bot().create_chat_invite_link(
+        return await self.get_bot().create_chat_invite_link(
             chat_id=self.id,
             expire_date=expire_date,
             member_limit=member_limit,
@@ -1509,7 +1509,7 @@ class Chat(TelegramObject):
             creates_join_request=creates_join_request,
         )
 
-    def edit_invite_link(
+    async def edit_invite_link(
         self,
         invite_link: str,
         expire_date: Union[int, datetime] = None,
@@ -1535,7 +1535,7 @@ class Chat(TelegramObject):
             :class:`telegram.ChatInviteLink`
 
         """
-        return self.get_bot().edit_chat_invite_link(
+        return await self.get_bot().edit_chat_invite_link(
             chat_id=self.id,
             invite_link=invite_link,
             expire_date=expire_date,
@@ -1546,7 +1546,7 @@ class Chat(TelegramObject):
             creates_join_request=creates_join_request,
         )
 
-    def revoke_invite_link(
+    async def revoke_invite_link(
         self,
         invite_link: str,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -1565,11 +1565,11 @@ class Chat(TelegramObject):
             :class:`telegram.ChatInviteLink`
 
         """
-        return self.get_bot().revoke_chat_invite_link(
+        return await self.get_bot().revoke_chat_invite_link(
             chat_id=self.id, invite_link=invite_link, timeout=timeout, api_kwargs=api_kwargs
         )
 
-    def approve_join_request(
+    async def approve_join_request(
         self,
         user_id: int,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -1588,11 +1588,11 @@ class Chat(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().approve_chat_join_request(
+        return await self.get_bot().approve_chat_join_request(
             chat_id=self.id, user_id=user_id, timeout=timeout, api_kwargs=api_kwargs
         )
 
-    def decline_join_request(
+    async def decline_join_request(
         self,
         user_id: int,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -1611,6 +1611,6 @@ class Chat(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().decline_chat_join_request(
+        return await self.get_bot().decline_chat_join_request(
             chat_id=self.id, user_id=user_id, timeout=timeout, api_kwargs=api_kwargs
         )

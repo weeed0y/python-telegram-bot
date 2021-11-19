@@ -450,8 +450,9 @@ class TestUser:
         monkeypatch.setattr(user.get_bot(), 'copy_message', make_assertion)
         assert await user.copy_message(chat_id='chat_id', message_id='message_id')
 
-    def test_instance_method_approve_join_request(self, monkeypatch, user):
-        def make_assertion(*_, **kwargs):
+    @pytest.mark.asyncio
+    async def test_instance_method_approve_join_request(self, monkeypatch, user):
+        async def make_assertion(*_, **kwargs):
             chat_id = kwargs['chat_id'] == 'chat_id'
             user_id = kwargs['user_id'] == user.id
             return chat_id and user_id
@@ -459,16 +460,17 @@ class TestUser:
         assert check_shortcut_signature(
             User.approve_join_request, Bot.approve_chat_join_request, ['user_id'], []
         )
-        assert check_shortcut_call(
+        assert await check_shortcut_call(
             user.approve_join_request, user.get_bot(), 'approve_chat_join_request'
         )
-        assert check_defaults_handling(user.approve_join_request, user.get_bot())
+        assert await check_defaults_handling(user.approve_join_request, user.get_bot())
 
         monkeypatch.setattr(user.get_bot(), 'approve_chat_join_request', make_assertion)
-        assert user.approve_join_request(chat_id='chat_id')
+        assert await user.approve_join_request(chat_id='chat_id')
 
-    def test_instance_method_decline_join_request(self, monkeypatch, user):
-        def make_assertion(*_, **kwargs):
+    @pytest.mark.asyncio
+    async def test_instance_method_decline_join_request(self, monkeypatch, user):
+        async def make_assertion(*_, **kwargs):
             chat_id = kwargs['chat_id'] == 'chat_id'
             user_id = kwargs['user_id'] == user.id
             return chat_id and user_id
@@ -476,13 +478,13 @@ class TestUser:
         assert check_shortcut_signature(
             User.decline_join_request, Bot.decline_chat_join_request, ['user_id'], []
         )
-        assert check_shortcut_call(
+        assert await check_shortcut_call(
             user.decline_join_request, user.get_bot(), 'decline_chat_join_request'
         )
-        assert check_defaults_handling(user.decline_join_request, user.get_bot())
+        assert await check_defaults_handling(user.decline_join_request, user.get_bot())
 
         monkeypatch.setattr(user.get_bot(), 'decline_chat_join_request', make_assertion)
-        assert user.decline_join_request(chat_id='chat_id')
+        assert await user.decline_join_request(chat_id='chat_id')
 
     @pytest.mark.asyncio
     async def test_mention_html(self, user):

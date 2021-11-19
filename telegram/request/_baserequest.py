@@ -67,10 +67,10 @@ class BaseRequest(
     .. code:: python
 
         try:
-            request_object.initialize()
+            await request_object.initialize()
             # code
         finally:
-            request_object.stop()
+            await request_object.stop()
     """
 
     __slots__ = ()

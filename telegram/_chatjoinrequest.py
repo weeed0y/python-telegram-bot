@@ -109,7 +109,7 @@ class ChatJoinRequest(TelegramObject):
 
         return data
 
-    def approve(
+    async def approve(
         self,
         timeout: ODVInput[float] = DEFAULT_NONE,
         api_kwargs: JSONDict = None,
@@ -126,11 +126,11 @@ class ChatJoinRequest(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().approve_chat_join_request(
+        return await self.get_bot().approve_chat_join_request(
             chat_id=self.chat.id, user_id=self.from_user.id, timeout=timeout, api_kwargs=api_kwargs
         )
 
-    def decline(
+    async def decline(
         self,
         timeout: ODVInput[float] = DEFAULT_NONE,
         api_kwargs: JSONDict = None,
@@ -147,6 +147,6 @@ class ChatJoinRequest(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().decline_chat_join_request(
+        return await self.get_bot().decline_chat_join_request(
             chat_id=self.chat.id, user_id=self.from_user.id, timeout=timeout, api_kwargs=api_kwargs
         )
