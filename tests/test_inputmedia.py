@@ -517,7 +517,6 @@ class TestSendMediaGroup:
         photo_file,  # noqa: F811
         animation_file,  # noqa: F811
     ):
-    ):
         async def func():
             return await bot.send_media_group(
                 chat_id,

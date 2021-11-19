@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU Lesser Public License
 # along with this program.  If not, see [http://www.gnu.org/licenses/].
 import os
+from pathlib import Path
 
 import pytest
 from flaky import flaky
