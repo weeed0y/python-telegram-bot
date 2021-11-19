@@ -21,7 +21,7 @@ repos:
         args:
           - --rcfile=setup.cfg
         additional_dependencies:
-          - certifi
+          - httpx >= 0.20.0,<1.0
           - tornado>=6.1
           - APScheduler==3.6.3
           - cachetools==4.2.2
@@ -36,25 +36,12 @@ repos:
           - types-ujson
           - types-pytz
           - types-cryptography
-          - types-certifi
           - types-cachetools
-          - certifi
+          - httpx >= 0.20.0,<1.0
           - tornado>=6.1
           - APScheduler==3.6.3
           - cachetools==4.2.2
-          - . # this basically does `pip install -e .`
-    -   id: mypy
-        name: mypy-examples
-        files: ^examples/.*\.py$
-        args:
-          - --no-strict-optional
-          - --follow-imports=silent
-        additional_dependencies:
-          - certifi
-          - tornado>=6.1
-          - APScheduler==3.6.3
-          - cachetools==4.2.2
-          - . # this basically does `pip install -e .`
+          - . # this basically does `pip install -e .`n
 -   repo: https://github.com/asottile/pyupgrade
     rev: v2.29.0
     hooks:

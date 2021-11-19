@@ -87,7 +87,7 @@ class ShippingQuery(TelegramObject):
 
         return cls(bot=bot, **data)
 
-    def answer(  # pylint: disable=invalid-name
+    async def answer(  # pylint: disable=invalid-name
         self,
         ok: bool,
         shipping_options: List[ShippingOption] = None,
@@ -103,7 +103,7 @@ class ShippingQuery(TelegramObject):
         :meth:`telegram.Bot.answer_shipping_query`.
 
         """
-        return self.get_bot().answer_shipping_query(
+        return await self.get_bot().answer_shipping_query(
             shipping_query_id=self.id,
             ok=ok,
             shipping_options=shipping_options,

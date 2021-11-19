@@ -141,7 +141,7 @@ class CallbackQuery(TelegramObject):
 
         return cls(bot=bot, **data)
 
-    def answer(
+    async def answer(
         self,
         text: str = None,
         show_alert: bool = False,
@@ -161,7 +161,7 @@ class CallbackQuery(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().answer_callback_query(
+        return await self.get_bot().answer_callback_query(
             callback_query_id=self.id,
             text=text,
             show_alert=show_alert,
@@ -171,7 +171,7 @@ class CallbackQuery(TelegramObject):
             api_kwargs=api_kwargs,
         )
 
-    def edit_message_text(
+    async def edit_message_text(
         self,
         text: str,
         parse_mode: ODVInput[str] = DEFAULT_NONE,
@@ -199,7 +199,7 @@ class CallbackQuery(TelegramObject):
 
         """
         if self.inline_message_id:
-            return self.get_bot().edit_message_text(
+            return await self.get_bot().edit_message_text(
                 inline_message_id=self.inline_message_id,
                 text=text,
                 parse_mode=parse_mode,
@@ -211,7 +211,7 @@ class CallbackQuery(TelegramObject):
                 chat_id=None,
                 message_id=None,
             )
-        return self.message.edit_text(
+        return await self.message.edit_text(
             text=text,
             parse_mode=parse_mode,
             disable_web_page_preview=disable_web_page_preview,
@@ -221,7 +221,7 @@ class CallbackQuery(TelegramObject):
             entities=entities,
         )
 
-    def edit_message_caption(
+    async def edit_message_caption(
         self,
         caption: str = None,
         reply_markup: 'InlineKeyboardMarkup' = None,
@@ -249,7 +249,7 @@ class CallbackQuery(TelegramObject):
 
         """
         if self.inline_message_id:
-            return self.get_bot().edit_message_caption(
+            return await self.get_bot().edit_message_caption(
                 caption=caption,
                 inline_message_id=self.inline_message_id,
                 reply_markup=reply_markup,
@@ -260,7 +260,7 @@ class CallbackQuery(TelegramObject):
                 chat_id=None,
                 message_id=None,
             )
-        return self.message.edit_caption(
+        return await self.message.edit_caption(
             caption=caption,
             reply_markup=reply_markup,
             timeout=timeout,
@@ -269,7 +269,7 @@ class CallbackQuery(TelegramObject):
             caption_entities=caption_entities,
         )
 
-    def edit_message_reply_markup(
+    async def edit_message_reply_markup(
         self,
         reply_markup: Optional['InlineKeyboardMarkup'] = None,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -302,7 +302,7 @@ class CallbackQuery(TelegramObject):
 
         """
         if self.inline_message_id:
-            return self.get_bot().edit_message_reply_markup(
+            return await self.get_bot().edit_message_reply_markup(
                 reply_markup=reply_markup,
                 inline_message_id=self.inline_message_id,
                 timeout=timeout,
@@ -310,13 +310,13 @@ class CallbackQuery(TelegramObject):
                 chat_id=None,
                 message_id=None,
             )
-        return self.message.edit_reply_markup(
+        return await self.message.edit_reply_markup(
             reply_markup=reply_markup,
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def edit_message_media(
+    async def edit_message_media(
         self,
         media: 'InputMedia',
         reply_markup: 'InlineKeyboardMarkup' = None,
@@ -341,7 +341,7 @@ class CallbackQuery(TelegramObject):
 
         """
         if self.inline_message_id:
-            return self.get_bot().edit_message_media(
+            return await self.get_bot().edit_message_media(
                 inline_message_id=self.inline_message_id,
                 media=media,
                 reply_markup=reply_markup,
@@ -350,14 +350,14 @@ class CallbackQuery(TelegramObject):
                 chat_id=None,
                 message_id=None,
             )
-        return self.message.edit_media(
+        return await self.message.edit_media(
             media=media,
             reply_markup=reply_markup,
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def edit_message_live_location(
+    async def edit_message_live_location(
         self,
         latitude: float = None,
         longitude: float = None,
@@ -390,7 +390,7 @@ class CallbackQuery(TelegramObject):
 
         """
         if self.inline_message_id:
-            return self.get_bot().edit_message_live_location(
+            return await self.get_bot().edit_message_live_location(
                 inline_message_id=self.inline_message_id,
                 latitude=latitude,
                 longitude=longitude,
@@ -404,7 +404,7 @@ class CallbackQuery(TelegramObject):
                 chat_id=None,
                 message_id=None,
             )
-        return self.message.edit_live_location(
+        return await self.message.edit_live_location(
             latitude=latitude,
             longitude=longitude,
             location=location,
@@ -416,7 +416,7 @@ class CallbackQuery(TelegramObject):
             proximity_alert_radius=proximity_alert_radius,
         )
 
-    def stop_message_live_location(
+    async def stop_message_live_location(
         self,
         reply_markup: 'InlineKeyboardMarkup' = None,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -443,7 +443,7 @@ class CallbackQuery(TelegramObject):
 
         """
         if self.inline_message_id:
-            return self.get_bot().stop_message_live_location(
+            return await self.get_bot().stop_message_live_location(
                 inline_message_id=self.inline_message_id,
                 reply_markup=reply_markup,
                 timeout=timeout,
@@ -451,13 +451,13 @@ class CallbackQuery(TelegramObject):
                 chat_id=None,
                 message_id=None,
             )
-        return self.message.stop_live_location(
+        return await self.message.stop_live_location(
             reply_markup=reply_markup,
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def set_game_score(
+    async def set_game_score(
         self,
         user_id: Union[int, str],
         score: int,
@@ -484,7 +484,7 @@ class CallbackQuery(TelegramObject):
 
         """
         if self.inline_message_id:
-            return self.get_bot().set_game_score(
+            return await self.get_bot().set_game_score(
                 inline_message_id=self.inline_message_id,
                 user_id=user_id,
                 score=score,
@@ -495,7 +495,7 @@ class CallbackQuery(TelegramObject):
                 chat_id=None,
                 message_id=None,
             )
-        return self.message.set_game_score(
+        return await self.message.set_game_score(
             user_id=user_id,
             score=score,
             force=force,
@@ -504,7 +504,7 @@ class CallbackQuery(TelegramObject):
             api_kwargs=api_kwargs,
         )
 
-    def get_game_high_scores(
+    async def get_game_high_scores(
         self,
         user_id: Union[int, str],
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -527,7 +527,7 @@ class CallbackQuery(TelegramObject):
 
         """
         if self.inline_message_id:
-            return self.get_bot().get_game_high_scores(
+            return await self.get_bot().get_game_high_scores(
                 inline_message_id=self.inline_message_id,
                 user_id=user_id,
                 timeout=timeout,
@@ -535,13 +535,13 @@ class CallbackQuery(TelegramObject):
                 chat_id=None,
                 message_id=None,
             )
-        return self.message.get_game_high_scores(
+        return await self.message.get_game_high_scores(
             user_id=user_id,
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def delete_message(
+    async def delete_message(
         self,
         timeout: ODVInput[float] = DEFAULT_NONE,
         api_kwargs: JSONDict = None,
@@ -557,12 +557,12 @@ class CallbackQuery(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.message.delete(
+        return await self.message.delete(
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def pin_message(
+    async def pin_message(
         self,
         disable_notification: ODVInput[bool] = DEFAULT_NONE,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -579,13 +579,13 @@ class CallbackQuery(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.message.pin(
+        return await self.message.pin(
             disable_notification=disable_notification,
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def unpin_message(
+    async def unpin_message(
         self,
         timeout: ODVInput[float] = DEFAULT_NONE,
         api_kwargs: JSONDict = None,
@@ -601,12 +601,12 @@ class CallbackQuery(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.message.unpin(
+        return await self.message.unpin(
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def copy_message(
+    async def copy_message(
         self,
         chat_id: Union[int, str],
         caption: str = None,
@@ -635,7 +635,7 @@ class CallbackQuery(TelegramObject):
             :class:`telegram.MessageId`: On success, returns the MessageId of the sent message.
 
         """
-        return self.message.copy(
+        return await self.message.copy(
             chat_id=chat_id,
             caption=caption,
             parse_mode=parse_mode,

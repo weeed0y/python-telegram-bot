@@ -114,7 +114,7 @@ class PreCheckoutQuery(TelegramObject):
 
         return cls(bot=bot, **data)
 
-    def answer(  # pylint: disable=invalid-name
+    async def answer(  # pylint: disable=invalid-name
         self,
         ok: bool,
         error_message: str = None,
@@ -129,7 +129,7 @@ class PreCheckoutQuery(TelegramObject):
         :meth:`telegram.Bot.answer_pre_checkout_query`.
 
         """
-        return self.get_bot().answer_pre_checkout_query(
+        return await self.get_bot().answer_pre_checkout_query(
             pre_checkout_query_id=self.id,
             ok=ok,
             error_message=error_message,

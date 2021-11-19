@@ -52,10 +52,10 @@ from telegram._utils.types import JSONDict, ODVInput, DVInput
 from telegram._utils.defaultvalue import DEFAULT_NONE, DefaultValue
 from telegram._utils.datetime import to_timestamp
 from telegram.ext._callbackdatacache import CallbackDataCache
+from telegram.request import BaseRequest
 
 if TYPE_CHECKING:
     from telegram import InlineQueryResult, MessageEntity
-    from telegram.request import Request
     from telegram.ext import Defaults
 
 HandledTypes = TypeVar('HandledTypes', bound=Union[Message, CallbackQuery, Chat])
@@ -96,7 +96,7 @@ class ExtBot(Bot):
         token: str,
         base_url: str = 'https://api.telegram.org/bot',
         base_file_url: str = 'https://api.telegram.org/file/bot',
-        request: 'Request' = None,
+        request: BaseRequest = None,
         private_key: bytes = None,
         private_key_password: bytes = None,
         defaults: 'Defaults' = None,
@@ -246,7 +246,7 @@ class ExtBot(Bot):
 
         return obj
 
-    def _message(
+    async def _send_message(
         self,
         endpoint: str,
         data: JSONDict,
@@ -259,7 +259,7 @@ class ExtBot(Bot):
     ) -> Union[bool, Message]:
         # We override this method to call self._replace_keyboard and self._insert_callback_data.
         # This covers most methods that have a reply_markup
-        result = super()._message(
+        result = await super()._send_message(
             endpoint=endpoint,
             data=data,
             reply_to_message_id=reply_to_message_id,
@@ -273,7 +273,7 @@ class ExtBot(Bot):
             self._insert_callback_data(result)
         return result
 
-    def get_updates(
+    async def get_updates(
         self,
         offset: int = None,
         limit: int = 100,
@@ -282,7 +282,7 @@ class ExtBot(Bot):
         allowed_updates: List[str] = None,
         api_kwargs: JSONDict = None,
     ) -> List[Update]:
-        updates = super().get_updates(
+        updates = await super().get_updates(
             offset=offset,
             limit=limit,
             timeout=timeout,
@@ -354,7 +354,7 @@ class ExtBot(Bot):
                     self.defaults.disable_web_page_preview if self.defaults else None
                 )
 
-    def stop_poll(
+    async def stop_poll(
         self,
         chat_id: Union[int, str],
         message_id: int,
@@ -363,7 +363,7 @@ class ExtBot(Bot):
         api_kwargs: JSONDict = None,
     ) -> Poll:
         # We override this method to call self._replace_keyboard
-        return super().stop_poll(
+        return await super().stop_poll(
             chat_id=chat_id,
             message_id=message_id,
             reply_markup=self._replace_keyboard(reply_markup),
@@ -371,7 +371,7 @@ class ExtBot(Bot):
             api_kwargs=api_kwargs,
         )
 
-    def copy_message(
+    async def copy_message(
         self,
         chat_id: Union[int, str],
         from_chat_id: Union[str, int],
@@ -387,7 +387,7 @@ class ExtBot(Bot):
         api_kwargs: JSONDict = None,
     ) -> MessageId:
         # We override this method to call self._replace_keyboard
-        return super().copy_message(
+        return await super().copy_message(
             chat_id=chat_id,
             from_chat_id=from_chat_id,
             message_id=message_id,
@@ -402,14 +402,14 @@ class ExtBot(Bot):
             api_kwargs=api_kwargs,
         )
 
-    def get_chat(
+    async def get_chat(
         self,
         chat_id: Union[str, int],
         timeout: ODVInput[float] = DEFAULT_NONE,
         api_kwargs: JSONDict = None,
     ) -> Chat:
         # We override this method to call self._insert_callback_data
-        result = super().get_chat(chat_id=chat_id, timeout=timeout, api_kwargs=api_kwargs)
+        result = await super().get_chat(chat_id=chat_id, timeout=timeout, api_kwargs=api_kwargs)
         return self._insert_callback_data(result)
 
     # updated camelCase aliases

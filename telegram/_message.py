@@ -703,7 +703,7 @@ class Message(TelegramObject):
 
         return None
 
-    def reply_text(
+    async def reply_text(
         self,
         text: str,
         parse_mode: ODVInput[str] = DEFAULT_NONE,
@@ -734,7 +734,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_message(
+        return await self.get_bot().send_message(
             chat_id=self.chat_id,
             text=text,
             parse_mode=parse_mode,
@@ -748,7 +748,7 @@ class Message(TelegramObject):
             entities=entities,
         )
 
-    def reply_markdown(
+    async def reply_markdown(
         self,
         text: str,
         disable_web_page_preview: ODVInput[bool] = DEFAULT_NONE,
@@ -788,7 +788,7 @@ class Message(TelegramObject):
             :class:`telegram.Message`: On success, instance representing the message posted.
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_message(
+        return await self.get_bot().send_message(
             chat_id=self.chat_id,
             text=text,
             parse_mode=ParseMode.MARKDOWN,
@@ -802,7 +802,7 @@ class Message(TelegramObject):
             entities=entities,
         )
 
-    def reply_markdown_v2(
+    async def reply_markdown_v2(
         self,
         text: str,
         disable_web_page_preview: ODVInput[bool] = DEFAULT_NONE,
@@ -838,7 +838,7 @@ class Message(TelegramObject):
             :class:`telegram.Message`: On success, instance representing the message posted.
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_message(
+        return await self.get_bot().send_message(
             chat_id=self.chat_id,
             text=text,
             parse_mode=ParseMode.MARKDOWN_V2,
@@ -852,7 +852,7 @@ class Message(TelegramObject):
             entities=entities,
         )
 
-    def reply_html(
+    async def reply_html(
         self,
         text: str,
         disable_web_page_preview: ODVInput[bool] = DEFAULT_NONE,
@@ -888,7 +888,7 @@ class Message(TelegramObject):
             :class:`telegram.Message`: On success, instance representing the message posted.
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_message(
+        return await self.get_bot().send_message(
             chat_id=self.chat_id,
             text=text,
             parse_mode=ParseMode.HTML,
@@ -902,7 +902,7 @@ class Message(TelegramObject):
             entities=entities,
         )
 
-    def reply_media_group(
+    async def reply_media_group(
         self,
         media: List[
             Union['InputMediaAudio', 'InputMediaDocument', 'InputMediaPhoto', 'InputMediaVideo']
@@ -933,7 +933,7 @@ class Message(TelegramObject):
             :class:`telegram.error.TelegramError`
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_media_group(
+        return await self.get_bot().send_media_group(
             chat_id=self.chat_id,
             media=media,
             disable_notification=disable_notification,
@@ -943,7 +943,7 @@ class Message(TelegramObject):
             allow_sending_without_reply=allow_sending_without_reply,
         )
 
-    def reply_photo(
+    async def reply_photo(
         self,
         photo: Union[FileInput, 'PhotoSize'],
         caption: str = None,
@@ -975,7 +975,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_photo(
+        return await self.get_bot().send_photo(
             chat_id=self.chat_id,
             photo=photo,
             caption=caption,
@@ -990,7 +990,7 @@ class Message(TelegramObject):
             filename=filename,
         )
 
-    def reply_audio(
+    async def reply_audio(
         self,
         audio: Union[FileInput, 'Audio'],
         duration: int = None,
@@ -1026,7 +1026,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_audio(
+        return await self.get_bot().send_audio(
             chat_id=self.chat_id,
             audio=audio,
             duration=duration,
@@ -1045,7 +1045,7 @@ class Message(TelegramObject):
             filename=filename,
         )
 
-    def reply_document(
+    async def reply_document(
         self,
         document: Union[FileInput, 'Document'],
         filename: str = None,
@@ -1079,7 +1079,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_document(
+        return await self.get_bot().send_document(
             chat_id=self.chat_id,
             document=document,
             filename=filename,
@@ -1096,7 +1096,7 @@ class Message(TelegramObject):
             caption_entities=caption_entities,
         )
 
-    def reply_animation(
+    async def reply_animation(
         self,
         animation: Union[FileInput, 'Animation'],
         duration: int = None,
@@ -1132,7 +1132,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_animation(
+        return await self.get_bot().send_animation(
             chat_id=self.chat_id,
             animation=animation,
             duration=duration,
@@ -1151,7 +1151,7 @@ class Message(TelegramObject):
             filename=filename,
         )
 
-    def reply_sticker(
+    async def reply_sticker(
         self,
         sticker: Union[FileInput, 'Sticker'],
         disable_notification: DVInput[bool] = DEFAULT_NONE,
@@ -1179,7 +1179,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_sticker(
+        return await self.get_bot().send_sticker(
             chat_id=self.chat_id,
             sticker=sticker,
             disable_notification=disable_notification,
@@ -1190,7 +1190,7 @@ class Message(TelegramObject):
             allow_sending_without_reply=allow_sending_without_reply,
         )
 
-    def reply_video(
+    async def reply_video(
         self,
         video: Union[FileInput, 'Video'],
         duration: int = None,
@@ -1227,7 +1227,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_video(
+        return await self.get_bot().send_video(
             chat_id=self.chat_id,
             video=video,
             duration=duration,
@@ -1247,7 +1247,7 @@ class Message(TelegramObject):
             filename=filename,
         )
 
-    def reply_video_note(
+    async def reply_video_note(
         self,
         video_note: Union[FileInput, 'VideoNote'],
         duration: int = None,
@@ -1279,7 +1279,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_video_note(
+        return await self.get_bot().send_video_note(
             chat_id=self.chat_id,
             video_note=video_note,
             duration=duration,
@@ -1294,7 +1294,7 @@ class Message(TelegramObject):
             filename=filename,
         )
 
-    def reply_voice(
+    async def reply_voice(
         self,
         voice: Union[FileInput, 'Voice'],
         duration: int = None,
@@ -1327,7 +1327,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_voice(
+        return await self.get_bot().send_voice(
             chat_id=self.chat_id,
             voice=voice,
             duration=duration,
@@ -1343,7 +1343,7 @@ class Message(TelegramObject):
             filename=filename,
         )
 
-    def reply_location(
+    async def reply_location(
         self,
         latitude: float = None,
         longitude: float = None,
@@ -1377,7 +1377,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_location(
+        return await self.get_bot().send_location(
             chat_id=self.chat_id,
             latitude=latitude,
             longitude=longitude,
@@ -1394,7 +1394,7 @@ class Message(TelegramObject):
             allow_sending_without_reply=allow_sending_without_reply,
         )
 
-    def reply_venue(
+    async def reply_venue(
         self,
         latitude: float = None,
         longitude: float = None,
@@ -1430,7 +1430,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_venue(
+        return await self.get_bot().send_venue(
             chat_id=self.chat_id,
             latitude=latitude,
             longitude=longitude,
@@ -1449,7 +1449,7 @@ class Message(TelegramObject):
             allow_sending_without_reply=allow_sending_without_reply,
         )
 
-    def reply_contact(
+    async def reply_contact(
         self,
         phone_number: str = None,
         first_name: str = None,
@@ -1481,7 +1481,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_contact(
+        return await self.get_bot().send_contact(
             chat_id=self.chat_id,
             phone_number=phone_number,
             first_name=first_name,
@@ -1496,7 +1496,7 @@ class Message(TelegramObject):
             allow_sending_without_reply=allow_sending_without_reply,
         )
 
-    def reply_poll(
+    async def reply_poll(
         self,
         question: str,
         options: List[str],
@@ -1535,7 +1535,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_poll(
+        return await self.get_bot().send_poll(
             chat_id=self.chat_id,
             question=question,
             options=options,
@@ -1557,7 +1557,7 @@ class Message(TelegramObject):
             explanation_entities=explanation_entities,
         )
 
-    def reply_dice(
+    async def reply_dice(
         self,
         disable_notification: ODVInput[bool] = DEFAULT_NONE,
         reply_to_message_id: int = None,
@@ -1585,7 +1585,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_dice(
+        return await self.get_bot().send_dice(
             chat_id=self.chat_id,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
@@ -1596,7 +1596,7 @@ class Message(TelegramObject):
             allow_sending_without_reply=allow_sending_without_reply,
         )
 
-    def reply_chat_action(
+    async def reply_chat_action(
         self,
         action: str,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -1614,14 +1614,14 @@ class Message(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().send_chat_action(
+        return await self.get_bot().send_chat_action(
             chat_id=self.chat_id,
             action=action,
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def reply_game(
+    async def reply_game(
         self,
         game_short_name: str,
         disable_notification: DVInput[bool] = DEFAULT_NONE,
@@ -1651,7 +1651,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_game(
+        return await self.get_bot().send_game(
             chat_id=self.chat_id,
             game_short_name=game_short_name,
             disable_notification=disable_notification,
@@ -1662,7 +1662,7 @@ class Message(TelegramObject):
             allow_sending_without_reply=allow_sending_without_reply,
         )
 
-    def reply_invoice(
+    async def reply_invoice(
         self,
         title: str,
         description: str,
@@ -1720,7 +1720,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().send_invoice(
+        return await self.get_bot().send_invoice(
             chat_id=self.chat_id,
             title=title,
             description=description,
@@ -1751,7 +1751,7 @@ class Message(TelegramObject):
             suggested_tip_amounts=suggested_tip_amounts,
         )
 
-    def forward(
+    async def forward(
         self,
         chat_id: Union[int, str],
         disable_notification: DVInput[bool] = DEFAULT_NONE,
@@ -1772,7 +1772,7 @@ class Message(TelegramObject):
             :class:`telegram.Message`: On success, instance representing the message forwarded.
 
         """
-        return self.get_bot().forward_message(
+        return await self.get_bot().forward_message(
             chat_id=chat_id,
             from_chat_id=self.chat_id,
             message_id=self.message_id,
@@ -1781,7 +1781,7 @@ class Message(TelegramObject):
             api_kwargs=api_kwargs,
         )
 
-    def copy(
+    async def copy(
         self,
         chat_id: Union[int, str],
         caption: str = None,
@@ -1808,7 +1808,7 @@ class Message(TelegramObject):
             :class:`telegram.MessageId`: On success, returns the MessageId of the sent message.
 
         """
-        return self.get_bot().copy_message(
+        return await self.get_bot().copy_message(
             chat_id=chat_id,
             from_chat_id=self.chat_id,
             message_id=self.message_id,
@@ -1823,7 +1823,7 @@ class Message(TelegramObject):
             api_kwargs=api_kwargs,
         )
 
-    def reply_copy(
+    async def reply_copy(
         self,
         from_chat_id: Union[str, int],
         message_id: int,
@@ -1861,7 +1861,7 @@ class Message(TelegramObject):
 
         """
         reply_to_message_id = self._quote(quote, reply_to_message_id)
-        return self.get_bot().copy_message(
+        return await self.get_bot().copy_message(
             chat_id=self.chat_id,
             from_chat_id=from_chat_id,
             message_id=message_id,
@@ -1876,7 +1876,7 @@ class Message(TelegramObject):
             api_kwargs=api_kwargs,
         )
 
-    def edit_text(
+    async def edit_text(
         self,
         text: str,
         parse_mode: ODVInput[str] = DEFAULT_NONE,
@@ -1905,7 +1905,7 @@ class Message(TelegramObject):
             edited Message is returned, otherwise ``True`` is returned.
 
         """
-        return self.get_bot().edit_message_text(
+        return await self.get_bot().edit_message_text(
             chat_id=self.chat_id,
             message_id=self.message_id,
             text=text,
@@ -1918,7 +1918,7 @@ class Message(TelegramObject):
             inline_message_id=None,
         )
 
-    def edit_caption(
+    async def edit_caption(
         self,
         caption: str = None,
         reply_markup: InlineKeyboardMarkup = None,
@@ -1947,7 +1947,7 @@ class Message(TelegramObject):
             edited Message is returned, otherwise ``True`` is returned.
 
         """
-        return self.get_bot().edit_message_caption(
+        return await self.get_bot().edit_message_caption(
             chat_id=self.chat_id,
             message_id=self.message_id,
             caption=caption,
@@ -1959,7 +1959,7 @@ class Message(TelegramObject):
             inline_message_id=None,
         )
 
-    def edit_media(
+    async def edit_media(
         self,
         media: 'InputMedia',
         reply_markup: InlineKeyboardMarkup = None,
@@ -1986,7 +1986,7 @@ class Message(TelegramObject):
             edited Message is returned, otherwise ``True`` is returned.
 
         """
-        return self.get_bot().edit_message_media(
+        return await self.get_bot().edit_message_media(
             media=media,
             chat_id=self.chat_id,
             message_id=self.message_id,
@@ -1996,7 +1996,7 @@ class Message(TelegramObject):
             inline_message_id=None,
         )
 
-    def edit_reply_markup(
+    async def edit_reply_markup(
         self,
         reply_markup: Optional['InlineKeyboardMarkup'] = None,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -2021,7 +2021,7 @@ class Message(TelegramObject):
             :class:`telegram.Message`: On success, if edited message is sent by the bot, the
             edited Message is returned, otherwise ``True`` is returned.
         """
-        return self.get_bot().edit_message_reply_markup(
+        return await self.get_bot().edit_message_reply_markup(
             chat_id=self.chat_id,
             message_id=self.message_id,
             reply_markup=reply_markup,
@@ -2030,7 +2030,7 @@ class Message(TelegramObject):
             inline_message_id=None,
         )
 
-    def edit_live_location(
+    async def edit_live_location(
         self,
         latitude: float = None,
         longitude: float = None,
@@ -2061,7 +2061,7 @@ class Message(TelegramObject):
             :class:`telegram.Message`: On success, if edited message is sent by the bot, the
             edited Message is returned, otherwise :obj:`True` is returned.
         """
-        return self.get_bot().edit_message_live_location(
+        return await self.get_bot().edit_message_live_location(
             chat_id=self.chat_id,
             message_id=self.message_id,
             latitude=latitude,
@@ -2076,7 +2076,7 @@ class Message(TelegramObject):
             inline_message_id=None,
         )
 
-    def stop_live_location(
+    async def stop_live_location(
         self,
         reply_markup: InlineKeyboardMarkup = None,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -2101,7 +2101,7 @@ class Message(TelegramObject):
             :class:`telegram.Message`: On success, if edited message is sent by the bot, the
             edited Message is returned, otherwise :obj:`True` is returned.
         """
-        return self.get_bot().stop_message_live_location(
+        return await self.get_bot().stop_message_live_location(
             chat_id=self.chat_id,
             message_id=self.message_id,
             reply_markup=reply_markup,
@@ -2110,7 +2110,7 @@ class Message(TelegramObject):
             inline_message_id=None,
         )
 
-    def set_game_score(
+    async def set_game_score(
         self,
         user_id: Union[int, str],
         score: int,
@@ -2137,7 +2137,7 @@ class Message(TelegramObject):
             :class:`telegram.Message`: On success, if edited message is sent by the bot, the
             edited Message is returned, otherwise :obj:`True` is returned.
         """
-        return self.get_bot().set_game_score(
+        return await self.get_bot().set_game_score(
             chat_id=self.chat_id,
             message_id=self.message_id,
             user_id=user_id,
@@ -2149,7 +2149,7 @@ class Message(TelegramObject):
             inline_message_id=None,
         )
 
-    def get_game_high_scores(
+    async def get_game_high_scores(
         self,
         user_id: Union[int, str],
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -2173,7 +2173,7 @@ class Message(TelegramObject):
         Returns:
             List[:class:`telegram.GameHighScore`]
         """
-        return self.get_bot().get_game_high_scores(
+        return await self.get_bot().get_game_high_scores(
             chat_id=self.chat_id,
             message_id=self.message_id,
             user_id=user_id,
@@ -2182,7 +2182,7 @@ class Message(TelegramObject):
             inline_message_id=None,
         )
 
-    def delete(
+    async def delete(
         self,
         timeout: ODVInput[float] = DEFAULT_NONE,
         api_kwargs: JSONDict = None,
@@ -2200,14 +2200,14 @@ class Message(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().delete_message(
+        return await self.get_bot().delete_message(
             chat_id=self.chat_id,
             message_id=self.message_id,
             timeout=timeout,
             api_kwargs=api_kwargs,
         )
 
-    def stop_poll(
+    async def stop_poll(
         self,
         reply_markup: InlineKeyboardMarkup = None,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -2227,7 +2227,7 @@ class Message(TelegramObject):
             returned.
 
         """
-        return self.get_bot().stop_poll(
+        return await self.get_bot().stop_poll(
             chat_id=self.chat_id,
             message_id=self.message_id,
             reply_markup=reply_markup,
@@ -2235,7 +2235,7 @@ class Message(TelegramObject):
             api_kwargs=api_kwargs,
         )
 
-    def pin(
+    async def pin(
         self,
         disable_notification: ODVInput[bool] = DEFAULT_NONE,
         timeout: ODVInput[float] = DEFAULT_NONE,
@@ -2254,7 +2254,7 @@ class Message(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().pin_chat_message(
+        return await self.get_bot().pin_chat_message(
             chat_id=self.chat_id,
             message_id=self.message_id,
             disable_notification=disable_notification,
@@ -2262,7 +2262,7 @@ class Message(TelegramObject):
             api_kwargs=api_kwargs,
         )
 
-    def unpin(
+    async def unpin(
         self,
         timeout: ODVInput[float] = DEFAULT_NONE,
         api_kwargs: JSONDict = None,
@@ -2280,7 +2280,7 @@ class Message(TelegramObject):
             :obj:`bool`: On success, :obj:`True` is returned.
 
         """
-        return self.get_bot().unpin_chat_message(
+        return await self.get_bot().unpin_chat_message(
             chat_id=self.chat_id,
             message_id=self.message_id,
             timeout=timeout,

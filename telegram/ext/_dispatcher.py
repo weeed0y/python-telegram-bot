@@ -46,9 +46,9 @@ from telegram.ext._handler import Handler
 from telegram.ext._callbackdatacache import CallbackDataCache
 from telegram._utils.defaultvalue import DefaultValue, DEFAULT_FALSE
 from telegram._utils.warnings import warn
-from telegram.ext._utils.promise import Promise
 from telegram.ext._utils.types import CCT, UD, CD, BD, BT, JQ, PT
 from telegram.ext._utils.stack import was_called_by
+from ._utils.promise import Promise
 
 if TYPE_CHECKING:
     from telegram.ext._jobqueue import Job
@@ -451,8 +451,8 @@ class Dispatcher(Generic[BT, CCT, UD, CD, BD, JQ, PT]):
         if self.persistence:
             self.persistence.flush()
 
-        # Clear the connection pool
-        self.bot.request.stop()
+        # Shut down the bot
+        self.bot.shutdown()
 
     @property
     def has_running_threads(self) -> bool:  # skipcq: PY-D0003
@@ -661,7 +661,7 @@ class Dispatcher(Generic[BT, CCT, UD, CD, BD, JQ, PT]):
         Args:
             callback (:obj:`callable`): The callback function for this error handler. Will be
                 called when an error is raised. Callback signature:
-                ``def callback(update: Update, context: CallbackContext)``
+                ``def callback(update: object, context: CallbackContext)``
 
                 The error that happened will be present in context.error.
             run_async (:obj:`bool`, optional): Whether this handlers callback should be run

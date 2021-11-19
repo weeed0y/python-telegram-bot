@@ -50,9 +50,9 @@ from telegram.ext import (
     TypeHandler,
 )
 from telegram._utils.warnings import warn
-from telegram.ext._utils.promise import Promise
 from telegram.ext._utils.types import ConversationDict
 from telegram.ext._utils.types import CCT
+from telegram.ext._utils.promise import Promise
 
 if TYPE_CHECKING:
     from telegram.ext import Dispatcher, Job, JobQueue
