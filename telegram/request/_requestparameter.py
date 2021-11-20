@@ -32,7 +32,7 @@ except ImportError:
     import json  # type: ignore[no-redef]  # noqa: F723
 
 
-@dataclass
+@dataclass(repr=False, eq=False, order=False, frozen=True)
 class RequestParameter:
     """Instances of this class represent a single parameter to be sent along with a request to
     the Bot API.
